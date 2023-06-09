@@ -1,21 +1,17 @@
+import React from "react";
 
 const SearchBar = ({data, searchUsers, query, setQuery }) => {
 
-  const onSubmitFn = (e)=>{
-    e.preventDefault()
-    searchUsers(data)
-  } 
-
-
- 
+  const inputChangeHandler = (e) =>{
+    searchUsers(e.target.value)
+  }
 
   return (
-    <>
-    <form onSubmit={onSubmitFn}>
-      <input type="search" placeholder="Search by name, email or role" value={query} onChange={(e) => setQuery(e.target.value)} />
-    </form>
-    </>
+    <React.Fragment>
+      <input type="text" placeholder="Search by name, email or role" value={query} onChange={inputChangeHandler} />
+    </React.Fragment>
   );
+
 };
 
 export default SearchBar;

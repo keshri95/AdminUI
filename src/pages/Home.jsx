@@ -16,28 +16,31 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
 
 
     // search user data --------
-    const searchUsers = () => {
-   
-      if(query.length > 0){
-        const searchTerm = data.filter((item) => {
-          return item.name.toLowerCase().includes(query.toLowerCase())
-        })
-        console.log(query)
-        setData(searchTerm)
-      }
-      else{
-        console.log(query)
-        setData(filterSearch)
+    const searchUsers = (searchValue) => {
+      setQuery(searchValue);
+    
+      if (query !== '') {
+        const filteredData = data.filter((item) => {
+          return Object.values(item).some((value) =>
+            value.toString().toLowerCase().includes(query.toLowerCase())
+          );
+        });
+        setFilterSearch(filteredData);
+      } else {
+        setFilterSearch(data);
       }
     };
 
-  // delete user row ----------
-    const removeUserData = (id) =>{
-      const updateRemoved = data.filter((item) => {
-      return item.id !== id
-      })
-      setData(updateRemoved)
-    }
+
+
+    // delete user row ----------
+    const removeUserData = (id) => {
+      const updatedData = data.filter((item) => item.id !== id);
+      const updatedFilterSearch = filterSearch.filter((item) => item.id !== id);
+      setData(updatedData);
+      setFilterSearch(updatedFilterSearch);
+    };
+    
 
     // pagination ----------
     const hadlePagination = (selectPage) => {
@@ -75,9 +78,17 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
         <tbody>
 
           {
-          data.slice(page*10 -10, page*10)?.map((item, id) => (
-              <Row key={id} item={item} removeUserData={removeUserData} doEditUserData={doEditUserData} />
-          ))}
+            query.length > 1 ? (
+              filterSearch?.map((item, id) => (
+                <Row key={id} item={item} removeUserData={removeUserData} doEditUserData={doEditUserData} />
+              ))
+            ): (
+
+              data?.map((item, id) => (
+                <Row key={id} item={item} removeUserData={removeUserData} doEditUserData={doEditUserData} />
+                ))
+              )
+              }
           
         </tbody>
       </table>
