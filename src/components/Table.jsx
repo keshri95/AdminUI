@@ -1,3 +1,4 @@
+// Table.jsx
 import Row from "./Row";
 
 export const Table = ({
@@ -6,13 +7,31 @@ export const Table = ({
   doEditUserData,
   handleChecked,
   isCheck,
+  handleCheckedMultiple,
 }) => {
+
+  // check all the records -------
+  const handleCheckedAll = (isChecked) => {
+    if (isChecked) {
+      const checkedRows = rowsToDisplay.map((row) => row.id);
+      handleCheckedMultiple(true, checkedRows);
+    } else {
+      handleCheckedMultiple(false, []);
+    }
+  };
+
+
+
   return (
     <table>
       <thead>
         <tr>
           <th>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={isCheck.length === rowsToDisplay.length}
+              onChange={(e) => handleCheckedAll(e.target.checked)}
+            />
           </th>
           <th>Name</th>
           <th>Email</th>

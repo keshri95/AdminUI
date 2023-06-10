@@ -1,3 +1,4 @@
+// Home.jsx
 import SearchBar from "../components/SearchBar";
 import { useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
@@ -6,26 +7,25 @@ import {
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
 import { Table } from "../components/Table";
-// import { adminRole } from "../utils/filterOption";
 
 const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  // check
-  const [isCheck, setIsCheck] = useState([])
+  const [isCheck, setIsCheck] = useState([]);
 
   const doEditUserData = (id) => {
     console.log(id);
   };
+  
 
-  // search user data --------
+  // search the records in the table ---------
   const searchUsers = (searchValue) => {
     setQuery(searchValue);
 
-    if (query !== "") {
+    if (searchValue !== "") {
       const filteredData = data.filter((item) => {
         return Object.values(item).some((value) =>
-          value.toString().toLowerCase().includes(query.toLowerCase())
+          value.toString().toLowerCase().includes(searchValue.toLowerCase())
         );
       });
       setFilterSearch(filteredData);
@@ -35,8 +35,8 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
 
     setPage(1);
   };
-
-  // delete user row ----------
+  
+  // remove single records ----------
   const removeUserData = (id) => {
     const updatedData = data.filter((item) => item.id !== id);
     const updatedFilterSearch = filterSearch.filter((item) => item.id !== id);
@@ -44,7 +44,7 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
     setFilterSearch(updatedFilterSearch);
   };
 
-  // pagination ----------
+  // pagination show next and prev records -------
   const hadlePagination = (selectPage) => {
     const totalPages = Math.ceil(filterSearch.length / 10);
     if (selectPage >= 1 && selectPage <= totalPages) {
@@ -60,16 +60,39 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
 
 
 
-  // checked 
-  const handleChecked = (e) => {
-    const {value, checked}  = e.target
-    if(checked){
-      setIsCheck([...isCheck, value])
-    } else{
-      setIsCheck(isCheck.filter((e) => e !== value))
-    }
+  // check one records  ------ 
+  const handleChecked = (id, checked) => {
 
-  }
+    if (checked) {
+      setIsCheck((prevSelectedRows) => [...prevSelectedRows, id]);
+    } else {
+      setIsCheck((prevSelectedRows) =>
+        prevSelectedRows.filter((row) => row !== id)
+      );
+    }
+  };
+
+  // multiple records selects --------
+  const handleCheckedMultiple = (isChecked, rowIds) => {
+    if (isChecked) {
+      setIsCheck((prevSelectedRows) => [...prevSelectedRows, ...rowIds]);
+    } else {
+      setIsCheck((prevSelectedRows) =>
+        prevSelectedRows.filter((row) => !rowIds.includes(row))
+      );
+    }
+  };
+  
+  // delete selected records ---------
+  const deleteSelectedRows = () => {
+    const updatedRows = data.filter((item) => !isCheck.includes(item.id));
+    const updatedFilterSearch = filterSearch.filter(
+      (item) => !isCheck.includes(item.id)
+    );
+    setData(updatedRows);
+    setFilterSearch(updatedFilterSearch);
+    setIsCheck([]);
+  };
 
   return (
     <div className="table">
@@ -81,16 +104,19 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
         filterSearch={filterSearch}
       />
 
-      <Table 
+      <Table
         rowsToDisplay={rowsToDisplay}
         removeUserData={removeUserData}
         doEditUserData={doEditUserData}
         handleChecked={handleChecked}
         isCheck={isCheck}
+        handleCheckedMultiple={handleCheckedMultiple}
       />
 
       <div>
-        <button onClick={handleChecked}>Delete Selected</button>
+        <button onClick={deleteSelectedRows} disabled={isCheck.length === 0}>
+          Delete Selected
+        </button>
 
         <button onClick={() => hadlePagination(1)}>
           <MdKeyboardDoubleArrowLeft />
