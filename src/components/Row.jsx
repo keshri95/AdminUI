@@ -1,16 +1,15 @@
 import {BiEdit } from "react-icons/bi"
 import { AiOutlineDelete } from "react-icons/ai"
-// import Checkbox from "./Checkbox";
 
 
-const Row = ({ item, doEditUserData, removeUserData }) => {
+const Row = ({ item, doEditUserData, removeUserData, handleChecked, isCheck }) => {
+
   const { id, name, email, role } = item
 
-  
   return (
       <tr key={id}>
         <td>
-          <input type="checkbox" />
+          <input type="checkbox" value={item.id} checked={item.isCheck} onChange={(e) => handleChecked(e)} />
         </td>
         <td>{name}</td>
         <td>{email}</td>
