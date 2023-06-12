@@ -2,14 +2,14 @@
   margin: 0;
   padding: 0;
 }
-/* .App{
+ .App{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-} */
-.table{
+} 
+/* .table{
   width: 100%;
   display: block;
   overflow: hidden;
@@ -18,7 +18,7 @@
   table-layout: fixed;
   white-space: nowrap;
   border-collapse: collapse;
-}
+} */
 .modal_container{
   border: 1px solid;
   position: fixed;

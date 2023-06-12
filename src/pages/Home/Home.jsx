@@ -1,48 +1,24 @@
-// Home.jsx
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../../components/Search/SearchBar";
 import { useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
-import { Table } from "../components/Table";
+import { Table } from "../../components/Table/Table";
+// import {adminRole} from "../utils/filterOption"
+import "./index.css"
 
-const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
+
+const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isCheck, setIsCheck] = useState([]);
 
-  const doEditUserData = (id) => {
-    console.log(id);
-  };
+
   
-
-  // search the records in the table ---------
-  const searchUsers = (searchValue) => {
-    setQuery(searchValue);
-
-    if (searchValue !== "") {
-      const filteredData = data.filter((item) => {
-        return Object.values(item).some((value) =>
-          value.toString().toLowerCase().includes(searchValue.toLowerCase())
-        );
-      });
-      setFilterSearch(filteredData);
-    } else {
-      setFilterSearch(data);
-    }
-
-    setPage(1);
-  };
   
-  // remove single records ----------
-  const removeUserData = (id) => {
-    const updatedData = data.filter((item) => item.id !== id);
-    const updatedFilterSearch = filterSearch.filter((item) => item.id !== id);
-    setData(updatedData);
-    setFilterSearch(updatedFilterSearch);
-  };
+ 
 
   // pagination show next and prev records -------
   const hadlePagination = (selectPage) => {
@@ -67,7 +43,7 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
       setIsCheck((prevSelectedRows) => [...prevSelectedRows, id]);
     } else {
       setIsCheck((prevSelectedRows) =>
-        prevSelectedRows.filter((row) => row !== id)
+      prevSelectedRows.filter((row) => row !== id)
       );
     }
   };
@@ -78,7 +54,7 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
       setIsCheck((prevSelectedRows) => [...prevSelectedRows, ...rowIds]);
     } else {
       setIsCheck((prevSelectedRows) =>
-        prevSelectedRows.filter((row) => !rowIds.includes(row))
+      prevSelectedRows.filter((row) => !rowIds.includes(row))
       );
     }
   };
@@ -99,18 +75,20 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
       <SearchBar
         query={query}
         setQuery={setQuery}
-        searchUsers={searchUsers}
         data={data}
-        filterSearch={filterSearch}
+        setFilterSearch={setFilterSearch}
+        setPage={setPage}
       />
 
       <Table
         rowsToDisplay={rowsToDisplay}
-        removeUserData={removeUserData}
-        doEditUserData={doEditUserData}
         handleChecked={handleChecked}
         isCheck={isCheck}
         handleCheckedMultiple={handleCheckedMultiple}
+        setFilterSearch={setFilterSearch}
+        filterSearch={filterSearch}
+        data={data}
+        setData={setData}
       />
 
       <div>
@@ -145,5 +123,7 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
     </div>
   );
 };
+
+
 
 export default Home;

@@ -27,13 +27,14 @@ const Modal = ({ closeModal, onSubmit }) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-
-        if(!validateForm()) return
-
-        onSubmit(formState)
-        closeModal()
-    }
+        e.preventDefault();
+      
+        if (!validateForm()) return;
+      
+        onSubmit(formState);
+        closeModal();
+    };
+      
 
   return (
     <div className="modal_container" onClick={(e) => {

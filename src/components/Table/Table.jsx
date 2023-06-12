@@ -1,23 +1,23 @@
-// Table.jsx
-import Row from "./Row";
+import Row from "../Row/Row";
+import "./index.css"
+
 
 export const Table = ({
   rowsToDisplay,
-  removeUserData,
-  doEditUserData,
   handleChecked,
   isCheck,
   handleCheckedMultiple,
+  setFilterSearch,
+  filterSearch,
+  data,
+  setData
 }) => {
 
   // check all the records -------
   const handleCheckedAll = (isChecked) => {
-    if (isChecked) {
-      const checkedRows = rowsToDisplay.map((row) => row.id);
-      handleCheckedMultiple(true, checkedRows);
-    } else {
-      handleCheckedMultiple(false, []);
-    }
+    const rowIds = rowsToDisplay.map((row) => row.id)
+    handleCheckedMultiple(isChecked, rowIds)
+ 
   };
 
 
@@ -44,13 +44,16 @@ export const Table = ({
           <Row
             key={id}
             item={item}
-            removeUserData={removeUserData}
-            doEditUserData={doEditUserData}
             handleChecked={handleChecked}
             isCheck={isCheck}
+            setFilterSearch={setFilterSearch}
+            filterSearch={filterSearch}
+            data={data}
+            setData={setData}
           />
         ))}
       </tbody>
     </table>
   );
 };
+
