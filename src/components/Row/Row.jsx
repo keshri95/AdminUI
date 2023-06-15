@@ -1,23 +1,39 @@
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
-import "./index.css"
+import "./index.scss"
+import { useState } from "react";
+import Modal from "../Modal/Modal";
 
-const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch,data, setData }) => {
+const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data, setData }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editedRecord, setEditedRecord] = useState(null);
+  
   const { id, name, email, role } = item;
 
   // remove single records ----------
   const addDeleteRecordHandler = (id) => {
-    // const updatedData = data.filter((item) => item.id !== id);
     const updatedFilterSearch = filterSearch.filter((item) => item.id !== id);
-    // setData(updatedData);
     setFilterSearch(updatedFilterSearch);
   };
 
 
     // edit single record in the table --------
-    const addEditRecordHandler = (id) => {
-     
+    const addEditRecordHandler = (item) => {
+      setIsModalOpen(true);
+      setEditedRecord(item);
     };
+    
+
+    
+
+    const updateRecord = (updatedRecord) => {
+      const updatedData = data.map((record) =>
+        record.id === updatedRecord.id ? updatedRecord : record
+      );
+      setData(updatedData);
+      closeModal();
+    };
+    
 
 
   return (
@@ -33,12 +49,24 @@ const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch,data,
       <td>{email}</td>
       <td>{role}</td>
       <td>
-        <button onClick={() => addEditRecordHandler(id)}>
-          <BiEdit color="gray" />
+      <div className="btn-group" role="group">
+
+        <button className="btn btn-success" onClick={() => addEditRecordHandler(item)}>
+          <BiEdit/>
         </button>
-        <button onClick={() => addDeleteRecordHandler(id)}>
-          <AiOutlineDelete color="red" />
+        {
+          isModalOpen && (
+            <Modal 
+              record={editedRecord}
+              closeModal={closeModal}
+              updateRecord={updateRecord}
+            />
+            )
+          }
+        <button className="btn btn-danger" onClick={() => addDeleteRecordHandler(id)}>
+          <AiOutlineDelete />
         </button>
+          </div>
       </td>
     </tr>
   );

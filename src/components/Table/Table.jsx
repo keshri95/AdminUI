@@ -1,6 +1,8 @@
 import Row from "../Row/Row";
-import "./index.css"
-
+import "./index.scss"
+import { adminRole } from "../../utils/filterOption";
+import { useEffect } from "react";
+import Modal from "../Modal/Modal";
 
 export const Table = ({
   rowsToDisplay,
@@ -10,7 +12,7 @@ export const Table = ({
   setFilterSearch,
   filterSearch,
   data,
-  setData
+  setData,
 }) => {
 
   // check all the records -------
@@ -23,20 +25,24 @@ export const Table = ({
 
 
   return (
-    <table>
+    <div className="table-responsive">
+    <table className="table table-light table-hover">
       <thead>
         <tr>
-          <th>
+          <th scope="col">
             <input
               type="checkbox"
               checked={isCheck.length === rowsToDisplay.length}
-              onChange={(e) => handleCheckedAll(e.target.checked)}
+              // onChange={(e) => handleCheckedAll(e.target.checked)}
+              onChange={(e) =>
+                handleCheckedMultiple(e.target.checked, rowsToDisplay.map((row) => row.id))
+              }
             />
           </th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Actions</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th scope="col">Actions</th>    
         </tr>
       </thead>
       <tbody>
@@ -54,6 +60,7 @@ export const Table = ({
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

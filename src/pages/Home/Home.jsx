@@ -7,15 +7,13 @@ import {
 } from "react-icons/md";
 import { Table } from "../../components/Table/Table";
 // import {adminRole} from "../utils/filterOption"
-import "./index.css"
+import "./index.scss"
 
 
 const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isCheck, setIsCheck] = useState([]);
-
-
   
   
  
@@ -71,7 +69,7 @@ const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
   };
 
   return (
-    <div className="table">
+    <div className="container">
       <SearchBar
         query={query}
         setQuery={setQuery}
@@ -91,20 +89,22 @@ const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
         setData={setData}
       />
 
-      <div>
-        <button onClick={deleteSelectedRows} disabled={isCheck.length === 0}>
+      <div className="btn btn-group">
+        <button className="btn btn-danger" onClick={deleteSelectedRows} disabled={isCheck.length === 0}>
           Delete Selected
         </button>
 
-        <button onClick={() => hadlePagination(1)}>
+
+        <button className="btn btn-primary" onClick={() => hadlePagination(1)}>
           <MdKeyboardDoubleArrowLeft />
         </button>
-        <button onClick={() => hadlePagination(page - 1)}>
+        <button className="btn btn-primary" onClick={() => hadlePagination(page - 1)}>
           <AiOutlineArrowLeft />
         </button>
 
         {[...Array(totalPages)].map((_, index) => (
           <button
+          className="btn btn-primary"
             key={index}
             onClick={() => hadlePagination(index + 1)}
             disabled={index + 1 === page}
@@ -113,13 +113,15 @@ const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
           </button>
         ))}
 
-        <button onClick={() => hadlePagination(page + 1)}>
+        <button className="btn btn-primary" onClick={() => hadlePagination(page + 1)}>
           <AiOutlineArrowRight />
         </button>
-        <button onClick={() => hadlePagination(totalPages)}>
+        <button className="btn btn-primary" onClick={() => hadlePagination(totalPages)}>
           <MdKeyboardDoubleArrowRight />
         </button>
+
       </div>
+
     </div>
   );
 };
