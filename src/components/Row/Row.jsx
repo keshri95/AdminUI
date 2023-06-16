@@ -1,12 +1,12 @@
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
 import "./index.scss"
-import { useState } from "react";
-import Modal from "../Modal/Modal";
+// import { useState } from "react";
+// import Modal from "../Modal/Modal";
+// import { PropTypes } from "prop-types"
 
 const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data, setData }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editedRecord, setEditedRecord] = useState(null);
+
   
   const { id, name, email, role } = item;
 
@@ -19,8 +19,7 @@ const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data
 
     // edit single record in the table --------
     const addEditRecordHandler = (item) => {
-      setIsModalOpen(true);
-      setEditedRecord(item);
+      console.log(item)
     };
     
 
@@ -31,7 +30,7 @@ const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data
         record.id === updatedRecord.id ? updatedRecord : record
       );
       setData(updatedData);
-      closeModal();
+      // closeModal();
     };
     
 
@@ -49,20 +48,11 @@ const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data
       <td>{email}</td>
       <td>{role}</td>
       <td>
-      <div className="btn-group" role="group">
+      <div className="btn-group-sm" role="group">
 
         <button className="btn btn-success" onClick={() => addEditRecordHandler(item)}>
           <BiEdit/>
         </button>
-        {
-          isModalOpen && (
-            <Modal 
-              record={editedRecord}
-              closeModal={closeModal}
-              updateRecord={updateRecord}
-            />
-            )
-          }
         <button className="btn btn-danger" onClick={() => addDeleteRecordHandler(id)}>
           <AiOutlineDelete />
         </button>
@@ -71,6 +61,17 @@ const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data
     </tr>
   );
 };
+
+
+// Row.propTypes = { 
+//   item: PropTypes
+//   handleChecked:PropTypes
+//    isCheck: propTypes
+//    setFilterSearch:PropTypes
+//    filterSearch: propTypes
+//     data:PropTypes
+//    setData: propTypes
+// }
 
 
 

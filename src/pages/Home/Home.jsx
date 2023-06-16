@@ -5,18 +5,14 @@ import {
   MdKeyboardDoubleArrowLeft,
   MdKeyboardDoubleArrowRight,
 } from "react-icons/md";
-import { Table } from "../../components/Table/Table";
+import Table from "../../components/Table/Table"
 // import {adminRole} from "../utils/filterOption"
-import "./index.scss"
+import "./index.scss";
 
-
-const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
+const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isCheck, setIsCheck] = useState([]);
-  
-  
- 
 
   // pagination show next and prev records -------
   const hadlePagination = (selectPage) => {
@@ -32,16 +28,13 @@ const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
 
   const totalPages = Math.ceil(filterSearch.length / 10);
 
-
-
-  // check one records  ------ 
+  // check one records  ------
   const handleChecked = (id, checked) => {
-
     if (checked) {
       setIsCheck((prevSelectedRows) => [...prevSelectedRows, id]);
     } else {
       setIsCheck((prevSelectedRows) =>
-      prevSelectedRows.filter((row) => row !== id)
+        prevSelectedRows.filter((row) => row !== id)
       );
     }
   };
@@ -52,11 +45,11 @@ const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
       setIsCheck((prevSelectedRows) => [...prevSelectedRows, ...rowIds]);
     } else {
       setIsCheck((prevSelectedRows) =>
-      prevSelectedRows.filter((row) => !rowIds.includes(row))
+        prevSelectedRows.filter((row) => !rowIds.includes(row))
       );
     }
   };
-  
+
   // delete selected records ---------
   const deleteSelectedRows = () => {
     const updatedRows = data.filter((item) => !isCheck.includes(item.id));
@@ -89,43 +82,58 @@ const Home = ({ data, setData, filterSearch, setFilterSearch}) => {
         setData={setData}
       />
 
-      <div className="btn btn-group">
-        <button className="btn btn-danger" onClick={deleteSelectedRows} disabled={isCheck.length === 0}>
-          Delete Selected
-        </button>
-
-
-        <button className="btn btn-primary" onClick={() => hadlePagination(1)}>
-          <MdKeyboardDoubleArrowLeft />
-        </button>
-        <button className="btn btn-primary" onClick={() => hadlePagination(page - 1)}>
-          <AiOutlineArrowLeft />
-        </button>
-
-        {[...Array(totalPages)].map((_, index) => (
+      <div className="col">
+        <div className="col my-1">
           <button
-          className="btn btn-primary"
-            key={index}
-            onClick={() => hadlePagination(index + 1)}
-            disabled={index + 1 === page}
+            className="btn btn-danger btn-sm "
+            onClick={deleteSelectedRows}
+            disabled={isCheck.length === 0}
           >
-            {index + 1}
+            Delete Selected
           </button>
-        ))}
+        </div>
 
-        <button className="btn btn-primary" onClick={() => hadlePagination(page + 1)}>
-          <AiOutlineArrowRight />
-        </button>
-        <button className="btn btn-primary" onClick={() => hadlePagination(totalPages)}>
-          <MdKeyboardDoubleArrowRight />
-        </button>
+        <div className="col my-1 text-center ">
+          <button
+            className="btn btn-primary  btn-sm "
+            onClick={() => hadlePagination(1)}
+          >
+            <MdKeyboardDoubleArrowLeft />
+          </button>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => hadlePagination(page - 1)}
+          >
+            <AiOutlineArrowLeft />
+          </button>
 
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              className="btn btn-primary btn-sm"
+              key={index}
+              onClick={() => hadlePagination(index + 1)}
+              disabled={index + 1 === page}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            className="btn btn-primary  btn-sm"
+            onClick={() => hadlePagination(page + 1)}
+          >
+            <AiOutlineArrowRight />
+          </button>
+
+          <button
+            className="btn btn-primary  btn-sm"
+            onClick={() => hadlePagination(totalPages)}
+          >
+            <MdKeyboardDoubleArrowRight />
+          </button>
+        </div>
       </div>
-
     </div>
   );
 };
-
-
 
 export default Home;

@@ -1,10 +1,8 @@
 import Row from "../Row/Row";
-import "./index.scss"
-import { adminRole } from "../../utils/filterOption";
-import { useEffect } from "react";
-import Modal from "../Modal/Modal";
+import "./index.scss";
+// import PropTypes from "prop-types";
 
-export const Table = ({
+const Table = ({
   rowsToDisplay,
   handleChecked,
   isCheck,
@@ -16,51 +14,66 @@ export const Table = ({
 }) => {
 
   // check all the records -------
-  const handleCheckedAll = (isChecked) => {
-    const rowIds = rowsToDisplay.map((row) => row.id)
-    handleCheckedMultiple(isChecked, rowIds)
- 
-  };
-
-
+  // const handleCheckedAll = (isChecked) => {
+  //   const rowIds = rowsToDisplay.map((row) => row.id);
+  //   handleCheckedMultiple(isChecked, rowIds);
+  // };
 
   return (
-    <div className="table-responsive">
-    <table className="table table-light table-hover">
-      <thead>
-        <tr>
-          <th scope="col">
-            <input
-              type="checkbox"
-              checked={isCheck.length === rowsToDisplay.length}
-              // onChange={(e) => handleCheckedAll(e.target.checked)}
-              onChange={(e) =>
-                handleCheckedMultiple(e.target.checked, rowsToDisplay.map((row) => row.id))
-              }
-            />
-          </th>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Role</th>
-          <th scope="col">Actions</th>    
-        </tr>
-      </thead>
-      <tbody>
-        {rowsToDisplay?.map((item, id) => (
-          <Row
-            key={id}
-            item={item}
-            handleChecked={handleChecked}
-            isCheck={isCheck}
-            setFilterSearch={setFilterSearch}
-            filterSearch={filterSearch}
-            data={data}
-            setData={setData}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className="col-lg-12">
+      <div className="table-responsive">
+        <table className="table table-light table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="row">
+                <input
+                  type="checkbox"
+                  checked={isCheck.length === rowsToDisplay.length}
+                  // onChange={(e) => handleCheckedAll(e.target.checked)}
+                  onChange={(e) =>
+                    handleCheckedMultiple(
+                      e.target.checked,
+                      rowsToDisplay.map((row) => row.id)
+                    )
+                  }
+                />
+              </th>
+              <th scope="row">Name</th>
+              <th scope="row">Email</th>
+              <th scope="row">Role</th>
+              <th scope="row">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rowsToDisplay?.map((item, id) => (
+              <Row
+                key={id}
+                item={item}
+                handleChecked={handleChecked}
+                isCheck={isCheck}
+                setFilterSearch={setFilterSearch}
+                filterSearch={filterSearch}
+                data={data}
+                setData={setData}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
 
+
+// Table.propTypes = { 
+//   data: PropTypes.array,
+//   rowsToDisplay: PropTypes.array,
+//   // setData: PropTypes.func,
+//   filterSearch: PropTypes.array,
+//   // handleChecked: PropTypes.
+//   // handleCheckedMultiple:PropTypes.array,
+//   // setFilterSearch: PropTypes.func,
+//   // isCheck: PropTypes.bool
+// }
+
+export default Table

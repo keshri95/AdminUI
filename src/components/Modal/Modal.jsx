@@ -3,8 +3,7 @@ import { useState } from "react";
 const Modal = ({ isModalOpen, closeModalHandler, editedRecord, setEditedRecord }) => {
   const [name, setName] = useState(editedRecord ? editedRecord.name : "");
   const [email, setEmail] = useState(editedRecord ? editedRecord.email : "");
-  const [phone, setPhone] = useState(editedRecord ? editedRecord.phone : "");
-  const [website, setWebsite] = useState(editedRecord ? editedRecord.website : "");
+  const [role, setRole] = useState(editedRecord ? editedRecord.role : "");
 
   const handleSave = () => {
     if (editedRecord) {
@@ -14,8 +13,7 @@ const Modal = ({ isModalOpen, closeModalHandler, editedRecord, setEditedRecord }
             ...item,
             name,
             email,
-            phone,
-            website,
+            role,
           };
         }
         return item;
@@ -38,13 +36,10 @@ const Modal = ({ isModalOpen, closeModalHandler, editedRecord, setEditedRecord }
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="form-group">
-          <label>Phone</label>
-          <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <label>Role</label>
+          <input type="tel" value={role} onChange={(e) => setRole(e.target.value)} />
         </div>
-        <div className="form-group">
-          <label>Website</label>
-          <input type="text" value={website} onChange={(e) => setWebsite(e.target.value)} />
-        </div>
+       
         <div className="modal-buttons">
           <button className="btn btn-primary" onClick={handleSave}>
             Save
