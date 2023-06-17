@@ -8,11 +8,19 @@ import {
 import Table from "../../components/Table/Table"
 // import {adminRole} from "../utils/filterOption"
 import "./index.scss";
+import PropTypes from "prop-types"
 
-const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
+const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, addDeleteRecordHandler }) => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isCheck, setIsCheck] = useState([]);
+
+
+
+  const handleEditRecord = (item) => {
+    openModalHandler(item);
+  };
+
 
   // pagination show next and prev records -------
   const hadlePagination = (selectPage) => {
@@ -80,6 +88,9 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
         filterSearch={filterSearch}
         data={data}
         setData={setData}
+        openModalHandler={openModalHandler}
+        handleEditRecord={handleEditRecord}
+        addDeleteRecordHandler={addDeleteRecordHandler}
       />
 
       <div className="col">
@@ -135,5 +146,14 @@ const Home = ({ data, setData, filterSearch, setFilterSearch }) => {
     </div>
   );
 };
+
+Home.propTypes = {
+  data: PropTypes.array,
+  setData: PropTypes.func,
+  filterSearch:PropTypes.array,
+  setFilterSearch: PropTypes.func, 
+  openModalHandler:  PropTypes.func,
+  addDeleteRecordHandler:  PropTypes.func,
+}
 
 export default Home;

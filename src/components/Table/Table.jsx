@@ -1,6 +1,6 @@
-import Row from "../Row/Row";
+import Row from "../Row/Row"
 import "./index.scss";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const Table = ({
   rowsToDisplay,
@@ -11,15 +11,18 @@ const Table = ({
   filterSearch,
   data,
   setData,
+  handleEditRecord,
+  addDeleteRecordHandler
 }) => {
 
-  // check all the records -------
-  // const handleCheckedAll = (isChecked) => {
-  //   const rowIds = rowsToDisplay.map((row) => row.id);
-  //   handleCheckedMultiple(isChecked, rowIds);
-  // };
+
+  const handleCheckedAll = (isChecked) => {
+    handleCheckedMultiple(isChecked, rowsToDisplay?.map((row) => row.id));
+  };
 
   return (
+    <div className="container">
+
     <div className="col-lg-12">
       <div className="table-responsive">
         <table className="table table-light table-hover table-sm">
@@ -29,13 +32,7 @@ const Table = ({
                 <input
                   type="checkbox"
                   checked={isCheck.length === rowsToDisplay.length}
-                  // onChange={(e) => handleCheckedAll(e.target.checked)}
-                  onChange={(e) =>
-                    handleCheckedMultiple(
-                      e.target.checked,
-                      rowsToDisplay.map((row) => row.id)
-                    )
-                  }
+                  onChange={handleCheckedAll}
                 />
               </th>
               <th scope="row">Name</th>
@@ -55,25 +52,31 @@ const Table = ({
                 filterSearch={filterSearch}
                 data={data}
                 setData={setData}
+                handleEditRecord={handleEditRecord}
+                addDeleteRecordHandler={addDeleteRecordHandler}
               />
             ))}
           </tbody>
         </table>
       </div>
     </div>
+    </div>
+
   );
 };
 
 
-// Table.propTypes = { 
-//   data: PropTypes.array,
-//   rowsToDisplay: PropTypes.array,
-//   // setData: PropTypes.func,
-//   filterSearch: PropTypes.array,
-//   // handleChecked: PropTypes.
-//   // handleCheckedMultiple:PropTypes.array,
-//   // setFilterSearch: PropTypes.func,
-//   // isCheck: PropTypes.bool
-// }
+Table.propTypes = { 
+  rowsToDisplay: PropTypes.array,
+  handleChecked:PropTypes.func,
+  isCheck: PropTypes.array,
+  handleCheckedMultiple:PropTypes.func,
+  setFilterSearch:PropTypes.func,
+  filterSearch: PropTypes.array,
+  data:PropTypes.array,
+  setData: PropTypes.func,
+  handleEditRecord: PropTypes.func,
+  addDeleteRecordHandler: PropTypes.func
+}
 
 export default Table

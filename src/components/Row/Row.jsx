@@ -1,38 +1,16 @@
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
 import "./index.scss"
-// import { useState } from "react";
-// import Modal from "../Modal/Modal";
-// import { PropTypes } from "prop-types"
+import { PropTypes } from "prop-types"
 
-const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data, setData }) => {
-
+const Row = ({ item, handleChecked, isCheck, handleEditRecord, addDeleteRecordHandler }) => {
   
   const { id, name, email, role } = item;
 
-  // remove single records ----------
-  const addDeleteRecordHandler = (id) => {
-    const updatedFilterSearch = filterSearch.filter((item) => item.id !== id);
-    setFilterSearch(updatedFilterSearch);
-  };
-
-
     // edit single record in the table --------
-    const addEditRecordHandler = (item) => {
-      console.log(item)
+    const addEditRecordHandler = () => {
+      handleEditRecord(item);
     };
-    
-
-    
-
-    const updateRecord = (updatedRecord) => {
-      const updatedData = data.map((record) =>
-        record.id === updatedRecord.id ? updatedRecord : record
-      );
-      setData(updatedData);
-      // closeModal();
-    };
-    
 
 
   return (
@@ -50,7 +28,7 @@ const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data
       <td>
       <div className="btn-group-sm" role="group">
 
-        <button className="btn btn-success" onClick={() => addEditRecordHandler(item)}>
+        <button className="btn btn-success"  onClick={addEditRecordHandler}>
           <BiEdit/>
         </button>
         <button className="btn btn-danger" onClick={() => addDeleteRecordHandler(id)}>
@@ -63,16 +41,12 @@ const Row = ({ item, handleChecked, isCheck, setFilterSearch, filterSearch, data
 };
 
 
-// Row.propTypes = { 
-//   item: PropTypes
-//   handleChecked:PropTypes
-//    isCheck: propTypes
-//    setFilterSearch:PropTypes
-//    filterSearch: propTypes
-//     data:PropTypes
-//    setData: propTypes
-// }
+Row.propTypes = { 
+  item: PropTypes.object,
+  isCheck: PropTypes.array,
+  handleEditRecord: PropTypes.func,
+  addDeleteRecordHandler: PropTypes.func,
+  handleChecked: PropTypes.func,
+}
 
-
-
-export default Row;
+export default Row
