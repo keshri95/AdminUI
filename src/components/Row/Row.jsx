@@ -2,6 +2,7 @@ import { BiEdit } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
 import "./index.scss"
 import { PropTypes } from "prop-types"
+import React from "react";
 
 const Row = ({ item, handleChecked, isCheck, handleEditRecord, addDeleteRecordHandler }) => {
   
@@ -14,7 +15,9 @@ const Row = ({ item, handleChecked, isCheck, handleEditRecord, addDeleteRecordHa
 
 
   return (
-    <tr key={id}>
+    <React.Fragment key={id}>
+
+    <tr>
       <td>
         <input
           type="checkbox"
@@ -37,6 +40,7 @@ const Row = ({ item, handleChecked, isCheck, handleEditRecord, addDeleteRecordHa
           </div>
       </td>
     </tr>
+    </React.Fragment>
   );
 };
 

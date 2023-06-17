@@ -1,3 +1,4 @@
+import React from "react";
 import Row from "../Row/Row"
 import "./index.scss";
 import PropTypes from "prop-types";
@@ -17,28 +18,32 @@ const Table = ({
 
 
   const handleCheckedAll = (isChecked) => {
-    handleCheckedMultiple(isChecked, rowsToDisplay?.map((row) => row.id));
+    if (isChecked) {
+      handleCheckedMultiple(
+        isCheck.length !== rowsToDisplay.length,
+        rowsToDisplay.map((row) => row.id)
+      );
+    } else {
+      handleCheckedMultiple(false, rowsToDisplay.map((row) => row.id));
+    }
   };
 
   return (
-    <div className="container">
-
-    <div className="col-lg-12">
-      <div className="table-responsive">
-        <table className="table table-light table-hover table-sm">
+      <React.Fragment>
+        <table className="table table-sm table-striped table-hover">
           <thead>
             <tr>
-              <th scope="row">
+              <th>
                 <input
                   type="checkbox"
                   checked={isCheck.length === rowsToDisplay.length}
                   onChange={handleCheckedAll}
                 />
               </th>
-              <th scope="row">Name</th>
-              <th scope="row">Email</th>
-              <th scope="row">Role</th>
-              <th scope="row">Actions</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -58,9 +63,7 @@ const Table = ({
             ))}
           </tbody>
         </table>
-      </div>
-    </div>
-    </div>
+        </React.Fragment>
 
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./pages/Home/Home"
 import { fetchFromAPI } from "./utils/fetchFromAPI";
 import Modal from "./components/Modal/Modal";
@@ -46,7 +46,9 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <React.Fragment>
+
+    <main className="container">
       <Home
         data={data}
         setData={setData}
@@ -64,9 +66,10 @@ function App() {
           setEditedRecord={setEditedRecord}
           data={data}
           setData={setData}
-        />
-      )}
-    </div>
+          />
+          )}
+    </main>
+    </React.Fragment>
   )
 }
 

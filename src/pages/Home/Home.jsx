@@ -1,5 +1,5 @@
 import SearchBar from "../../components/Search/SearchBar";
-import { useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import {
   MdKeyboardDoubleArrowLeft,
@@ -57,7 +57,6 @@ const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, 
       );
     }
   };
-
   // delete selected records ---------
   const deleteSelectedRows = () => {
     const updatedRows = data.filter((item) => !isCheck.includes(item.id));
@@ -70,7 +69,9 @@ const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, 
   };
 
   return (
-    <div className="container">
+    <React.Fragment>
+
+    <main className="container">
       <SearchBar
         query={query}
         setQuery={setQuery}
@@ -93,7 +94,7 @@ const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, 
         addDeleteRecordHandler={addDeleteRecordHandler}
       />
 
-      <div className="col">
+      <nav className="col">
         <div className="col my-1">
           <button
             className="btn btn-danger btn-sm "
@@ -104,7 +105,7 @@ const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, 
           </button>
         </div>
 
-        <div className="col my-1 text-center ">
+        <footer className="col my-1 text-center ">
           <button
             className="btn btn-primary  btn-sm "
             onClick={() => hadlePagination(1)}
@@ -141,9 +142,11 @@ const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, 
           >
             <MdKeyboardDoubleArrowRight />
           </button>
-        </div>
-      </div>
-    </div>
+        </footer>
+
+      </nav>
+    </main>
+    </React.Fragment>
   );
 };
 

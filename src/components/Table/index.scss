@@ -1,14 +1,21 @@
-// table{
-//     border: 1px solid;
-//     width: 100%;
+@media only screen and (min-width: 320px) and (max-width: 425px) {
 
-//     thead{
-//         width: 100%;
-//     }
+  table{
+    display: grid;
+  
+    thead{
+    
+        tr{
+            display: grid;
+            grid-template-columns: repeat(5, auto);
+        }
 
+    }
 
-//     tbody{
+    tbody{
+        display: flex;
+        flex-direction: column;
 
-//         border: 1px solid;
-//     }
-// }
+    }
+}   
+}
