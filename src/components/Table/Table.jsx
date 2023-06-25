@@ -47,7 +47,7 @@ const Table = ({
             </tr>
           </thead>
           <tbody>
-            {rowsToDisplay?.map((item, id) => (
+            {rowsToDisplay.length >=1 && rowsToDisplay?.map((item, id) => (
               <Row
                 key={id}
                 item={item}
@@ -60,7 +60,8 @@ const Table = ({
                 handleEditRecord={handleEditRecord}
                 addDeleteRecordHandler={addDeleteRecordHandler}
               />
-            ))}
+            ))
+          }
           </tbody>
         </table>
         </React.Fragment>

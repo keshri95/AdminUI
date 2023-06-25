@@ -9,6 +9,7 @@ import Table from "../../components/Table/Table"
 // import {adminRole} from "../utils/filterOption"
 import "./index.scss";
 import PropTypes from "prop-types"
+import { toast } from "react-toastify";
 
 const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, addDeleteRecordHandler }) => {
   const [query, setQuery] = useState("");
@@ -66,6 +67,8 @@ const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, 
     setData(updatedRows);
     setFilterSearch(updatedFilterSearch);
     setIsCheck([]);
+    toast.success("Selected records has been deleted!!")
+
   };
 
   return (
@@ -80,19 +83,28 @@ const Home = ({ data, setData, filterSearch, setFilterSearch, openModalHandler, 
         setPage={setPage}
       />
 
-      <Table
-        rowsToDisplay={rowsToDisplay}
-        handleChecked={handleChecked}
-        isCheck={isCheck}
-        handleCheckedMultiple={handleCheckedMultiple}
-        setFilterSearch={setFilterSearch}
-        filterSearch={filterSearch}
-        data={data}
-        setData={setData}
-        openModalHandler={openModalHandler}
-        handleEditRecord={handleEditRecord}
-        addDeleteRecordHandler={addDeleteRecordHandler}
+    {
+      rowsToDisplay.length >= 1 ? (
+
+        <Table
+          rowsToDisplay={rowsToDisplay}
+          handleChecked={handleChecked}
+          isCheck={isCheck}
+          handleCheckedMultiple={handleCheckedMultiple}
+          setFilterSearch={setFilterSearch}
+          filterSearch={filterSearch}
+          data={data}
+          setData={setData}
+          openModalHandler={openModalHandler}
+          handleEditRecord={handleEditRecord}
+          addDeleteRecordHandler={addDeleteRecordHandler}
       />
+
+      ) :(
+        <p className="text-center display-4">No records found!</p>
+      )
+    }
+
 
       <nav className="col">
         <div className="col my-1">

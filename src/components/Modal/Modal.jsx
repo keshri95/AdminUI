@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./index.scss";
 import { PropTypes } from "prop-types"
+import { toast } from "react-toastify";
 
 const Modal = ({
   data,
@@ -36,6 +37,7 @@ const Modal = ({
 
     // Clear the edited record and close the modal
     setEditedRecord(null);
+    toast.success("Record has been updated successfully !!!")
     closeModalHandler();
   };
 

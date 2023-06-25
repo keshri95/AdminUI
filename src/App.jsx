@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Home from "./pages/Home/Home"
 import { fetchFromAPI } from "./utils/fetchFromAPI";
 import Modal from "./components/Modal/Modal";
+import { toast } from "react-toastify";
+
 
 function App() {
   const [data, setData] = useState([]);
@@ -25,6 +27,8 @@ function App() {
   const addDeleteRecordHandler = (id) => {
     // Filter out the record with the specified id
       const updatedData = data.filter((record) => record.id !== id);
+
+      toast.success("Record has been deleted!")
 
       // Update the data state with the filtered data array
       setData(updatedData);
@@ -68,7 +72,7 @@ function App() {
           setData={setData}
           />
           )}
-    </main>
+      </main>
     </React.Fragment>
   )
 }

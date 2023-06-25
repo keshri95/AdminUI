@@ -14,8 +14,11 @@
 
     tbody{
         display: flex;
-        flex-direction: column;
+        flex-direction: column;     
 
+        .no-record{
+              text-align: center !important;
+        }
     }
 }   
 }
