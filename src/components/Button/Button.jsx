@@ -1,7 +1,12 @@
-import "./index.scss"
+import "./index.scss";
+import PropTypes from "prop-types";
 
-const Button = ({children}) => {
-  return <button type="button">{children}</button>
-}
+const Button = ({ children }) => {
+  return <button type="button">{children}</button>;
+};
 
-export default Button
+Button.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+export default Button;

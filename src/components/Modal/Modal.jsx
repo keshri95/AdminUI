@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./index.scss";
-import { PropTypes } from "prop-types"
+// import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
 const Modal = ({
@@ -111,14 +112,34 @@ const Modal = ({
 };
 
 
-Modal.propTypes = { 
-  data: PropTypes.array,
-  setData: PropTypes.func,
-  // isModalOpen: PropTypes.boolean,
-  closeModalHandler: PropTypes.func,
-  // editedRecord: PropTypes.isRequired,
-  setEditedRecord:PropTypes.func,
-}
+// Modal.propTypes = { 
+//   data: PropTypes.array,
+//   setData: PropTypes.func,
+//   // isModalOpen: PropTypes.boolean,
+//   closeModalHandler: PropTypes.func,
+//   // editedRecord: PropTypes.isRequired,
+//   setEditedRecord:PropTypes.func,
+// }
 
+Modal.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      role: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  setData: PropTypes.func.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+  closeModalHandler: PropTypes.func.isRequired,
+  editedRecord: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    name: PropTypes.string,
+    email: PropTypes.string,
+    role: PropTypes.string,
+  }),
+  setEditedRecord: PropTypes.func.isRequired,
+};
 
 export default Modal;
